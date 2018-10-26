@@ -6,68 +6,72 @@
     <div padding text-center>
       <div class="logo"></div>
       <h2 ion-text class="text-primary">
-        <strong>Ionic 3</strong> Start Theme
+        <strong>Saúde</strong> em nuvem
       </h2>
     </div>
 
     <!-- Login form -->
-    <form class="list-form">
+    <form [formGroup]="credentialsForm" class="list-form">
+      <!-- Telefone -->
       <ion-item>
         <ion-label floating>
-          <ion-icon name="person" item-start class="text-primary"></ion-icon>
-          Full Name
+          <ion-icon name="tel" item-start class="text-primary"></ion-icon>
+          Telefone
         </ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [formControl]="credentialsForm.controls['telefone']" type="phone"></ion-input>
       </ion-item>
-
+      <div *ngIf="!credentialsForm.controls.telefone.valid &&
+                credentialsForm.controls['telefone'].dirty"
+        class="validator-error">
+        Informe um número de telefone válido!
+      </div>
+      <!-- Nome -->
       <ion-item>
         <ion-label floating>
-          <ion-icon name="mail" item-start class="text-primary"></ion-icon>
-          Email
+          <ion-icon name="nome" item-start class="text-primary"></ion-icon>
+          Nome
         </ion-label>
-        <ion-input type="email"></ion-input>
+        <ion-input [formControl]="credentialsForm.controls['nome']" type="text"></ion-input>
       </ion-item>
-
+      <div *ngIf="!credentialsForm.controls.nome.valid &&
+            credentialsForm.controls['nome'].dirty" class="validator-error">
+        Informe seu nome completo.
+      </div>
+      <!-- Data nascimento -->
+      <ion-item>
+          <ion-label floating>
+              <ion-icon name="data" item-start class="text-primary"></ion-icon>
+              Data de nascimento
+            </ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [formControl]="credentialsForm.controls['data']"></ion-datetime>
+        </ion-item>
+      <div *ngIf="!credentialsForm.controls.data.valid &&
+            credentialsForm.controls['data'].dirty" class="validator-error">
+        Data de nascimento informada não é válida .
+      </div>
+      <!-- Senha -->
       <ion-item>
         <ion-label floating>
-          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-          Password
+          <ion-icon name="senha" item-start class="text-primary"></ion-icon>
+          Senha
         </ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input [formControl]="credentialsForm.controls['senha']" type="password"></ion-input>
       </ion-item>
+      <div *ngIf="!credentialsForm.controls.senha.valid &&
+            credentialsForm.controls['senha'].dirty" class="validator-error">
+        Informe sua senha.
+      </div>
     </form>
 
     <div margin-top>
       <button ion-button block color="dark" tappable (click)="register()">
-        SIGN UP
+        Solicitar análise do cadastro
       </button>
-
-      <p text-center ion-text color="secondary">Or Sign Up with:</p>
-
-      <ion-grid>
-        <ion-row>
-          <ion-col col-4>
-            <button ion-button icon-only block class="btn-facebook">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col col-4>
-            <button ion-button icon-only block class="btn-twitter">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col col-4>
-            <button ion-button icon-only block class="btn-gplus">
-              <ion-icon name="logo-googleplus"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
     </div>
 
     <!-- Other links -->
     <div text-center margin-top>
-      <span ion-text color="primary" tappable (click)="login()">I have an account</span>
+      <span ion-text color="primary" tappable (click)="login()">Já tenho uma conta</span>
     </div>
 
   </div>
