@@ -2,15 +2,27 @@ import {Component} from "@angular/core";
 import {NavController, AlertController, ToastController, MenuController} from "ionic-angular";
 import {HomePage} from "../home/home";
 import {RegisterPage} from "../register/register";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  regexPhone  = /^[0-9]{11}$/;
+  credentialsForm: FormGroup;
 
-  constructor(public nav: NavController, public forgotCtrl: AlertController, public menu: MenuController, public toastCtrl: ToastController) {
+  constructor(public nav: NavController, public forgotCtrl: AlertController, public menu: MenuController,
+    public toastCtrl: ToastController, private formBuilder: FormBuilder,) {
     this.menu.swipeEnable(false);
+
+    this.credentialsForm = this.formBuilder.group({
+      telefone: ['', Validators.compose([
+        Validators.pattern(this.regexPhone),
+        Validators.required
+      ])],
+      senha: ['', Validators.required]
+    });
   }
 
   // go to register page
@@ -20,33 +32,34 @@ export class LoginPage {
 
   // login and go to home page
   login() {
+    console.log(this.credentialsForm);
     this.nav.setRoot(HomePage);
   }
 
   forgotPass() {
     let forgot = this.forgotCtrl.create({
-      title: 'Forgot Password?',
-      message: "Enter you email address to send a reset link password.",
+      title: 'Esqueceu a senha?',
+      message: "Informe seu número de telefone",
       inputs: [
         {
-          name: 'email',
-          placeholder: 'Email',
-          type: 'email'
+          name: 'telefone',
+          placeholder: 'Telefone',
+          type: 'phone'
         },
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Send',
+          text: 'Solicitar nova senha',
           handler: data => {
             console.log('Send clicked');
             let toast = this.toastCtrl.create({
-              message: 'Email was sended successfully',
+              message: 'SMS enviado aguarde um momento....',
               duration: 3000,
               position: 'top',
               cssClass: 'dark-trans',
@@ -60,5 +73,4 @@ export class LoginPage {
     });
     forgot.present();
   }
-
 }

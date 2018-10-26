@@ -6,38 +6,47 @@
     <div padding-horizontal text-center class="animated fadeInDown">
       <div class="logo"></div>
       <h2 ion-text class="text-primary">
-        <strong>Ionic 3</strong> Start Theme
+        <strong>Saúde</strong> em nuvem
       </h2>
     </div>
 
     <!-- Login form -->
-    <form class="list-form">
+    <form [formGroup]="credentialsForm" class="list-form">
       <ion-item>
         <ion-label floating>
-          <ion-icon name="mail" item-start class="text-primary"></ion-icon>
-          Email
+          <ion-icon name="tel" item-start class="text-primary"></ion-icon>
+          Telefone
         </ion-label>
-        <ion-input type="email"></ion-input>
+        <ion-input [formControl]="credentialsForm.controls['telefone']" type="phone"></ion-input>
       </ion-item>
+      <div *ngIf="!credentialsForm.controls.telefone.valid &&
+                credentialsForm.controls['telefone'].dirty" class="validator-error">
+        Informe um numero de telefone valido
+      </div>
 
       <ion-item>
         <ion-label floating>
-          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-          Password
+          <ion-icon name="senha" item-start class="text-primary"></ion-icon>
+          Senha
         </ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input [formControl]="credentialsForm.controls['senha']" type="password"></ion-input>
       </ion-item>
+      <div *ngIf="!credentialsForm.controls.senha.valid &&
+            credentialsForm.controls['senha'].dirty" class="validator-error">
+        Informe sua senha.
+      </div>
     </form>
 
-    <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>
+
+    <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Esqueceu a senha</strong></p>
 
     <div>
-      <button ion-button icon-start block color="dark" tappable (click)="login()">
+      <button ion-button icon-start block color="dark" tappable (click)="login()" [disabled]="!credentialsForm.valid">
         <ion-icon name="log-in"></ion-icon>
-        SIGN IN
+      Entrar
       </button>
 
-      <p text-center ion-text color="secondary">Or Sign in with:</p>
+      <p text-center ion-text color="secondary">Em breve autenticação pelo : </p>
 
       <ion-grid>
         <ion-row>
@@ -64,7 +73,7 @@
 
     <!-- Other links -->
     <div text-center margin-top>
-      <span ion-text color="secondary" tappable (click)="register()">New here? <strong>Sign up</strong></span>
+      <span ion-text color="secondary" tappable (click)="register()">Novo aqui? <strong>Realize seu cadastro</strong></span>
     </div>
 
   </div>
