@@ -52,8 +52,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.statusBar.overlaysWebView(false);
 
-      //*** Control Keyboard
-      this.keyboard.disableScroll(true);
     });
   }
 

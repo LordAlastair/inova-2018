@@ -25,6 +25,12 @@ import {TripDetailPage} from "../pages/trip-detail/trip-detail";
 import {TripsPage} from "../pages/trips/trips";
 import {LocalWeatherPage} from "../pages/local-weather/local-weather";
 
+// Dev imports
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+
 // import services
 // end import services
 // end import services
@@ -76,6 +82,10 @@ import {LocalWeatherPage} from "../pages/local-weather/local-weather";
   providers: [
     StatusBar,
     SplashScreen,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
     Keyboard,
     ActivityService,
     TripService,
